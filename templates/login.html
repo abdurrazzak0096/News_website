@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>SignUp Form</title>
+    {% load static %}
+  <link rel="stylesheet" href="{% static 'assets/css/register_style.css' %}">
+
+</head>
+<body>
+	<div class="main">
+		<input type="checkbox" id="chk" aria-hidden="true">
+<div class="signup">
+				<form method="post" action="{% url 'login' %}">
+                    {% csrf_token %}
+					<label for="chk" aria-hidden="true">Login</label>
+                    {% for message in messages %}
+                        <center><h4>{{ message}}</h4></center>
+                    {% endfor %}
+
+					<input type="text" name="username" placeholder="User name" id="username" required="">
+					<input type="password" name="password" placeholder="Password" id="password" required="">
+					<button type="submit">Login</button>
+				</form>
+			</div>
+
+
+	</div>
+
+</body>
+</html>

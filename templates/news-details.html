@@ -135,6 +135,8 @@
                         </div>
                         <div class="comment-section">
                           <h5 class="font-weight-600">Comments</h5>
+
+                            {% for comment in article.get_comment %}
                           <div class="comment-box">
                             <div class="d-flex align-items-center">
                               <div class="rotate-img">
@@ -146,82 +148,34 @@
                               </div>
                               <div>
                                 <p class="fs-12 mb-1 line-height-xs">
-                                  24 Jul 2020
+                                    {{ comment.timestamp}}
                                 </p>
                                 <p
                                   class="fs-16 font-weight-600 mb-0 line-height-xs"
                                 >
-                                  Chigusa Kisa
+                                  {{ comment.user }}
                                 </p>
                               </div>
                             </div>
 
                             <p class="fs-12 mt-3">
-                              Praesent facilisis vulputate venenatis. In
-                              facilisis placerat arcu, in tempor neque aliquet
-                              quis. Integer lacinia in ligula eu sodales. Proin
-                              non lorem iaculis, dictum lorem quis, bibendum
-                              leo.
+                                {{ comment.comment}}
                             </p>
                           </div>
-                          <div class="comment-box from">
-                            <div class="d-flex align-items-center">
-                              <div class="rotate-img">
-                                <img
-                                  src="../assets/images/faces/face3.jpg"
-                                  alt="banner"
-                                  class="img-fluid img-rounded mr-3"
-                                />
-                              </div>
-                              <div>
-                                <p class="fs-12 mb-1 line-height-xs">
-                                  24 Jul 2020
-                                </p>
-                                <p
-                                  class="fs-16 font-weight-600 mb-0 line-height-xs"
-                                >
-                                  Mohsen Salehi
-                                </p>
-                              </div>
-                            </div>
+                            {% endfor %}
 
-                            <p class="fs-12 mt-3">
-                              Praesent facilisis vulputate venenatis. In
-                              facilisis placerat arcu, in tempor neque aliquet
-                              quis. Integer lacinia in ligula eu sodales. Proin
-                              non lorem iaculis, dictum lorem quis, bibendum
-                              leo.
-                            </p>
-                          </div>
-                          <div class="comment-box mb-0">
-                            <div class="d-flex align-items-center">
-                              <div class="rotate-img">
-                                <img
-                                  src="../assets/images/faces/face3.jpg"
-                                  alt="banner"
-                                  class="img-fluid img-rounded mr-3"
-                                />
-                              </div>
-                              <div>
-                                <p class="fs-12 mb-1 line-height-xs">
-                                  24 Jul 2020
-                                </p>
-                                <p
-                                  class="fs-16 font-weight-600 mb-0 line-height-xs"
-                                >
-                                  Lucy Miller
-                                </p>
-                              </div>
-                            </div>
+                        {% if request.user.is_authenticated %}
+                           <form action="{% url 'news-comments' article.pk %}" method="post">
+                               {% csrf_token %}
+                               <div>
+                                    <textarea name="comment" id="comment" style="font-family:sans-serif;font-size:.7em;"> </textarea>
+                               </div>
+                                <input type="submit" value="Submit">
+                           </form>
+                        {% else %}
+                        <p> <a href="{% url 'login' %}" >Login </a> to Comment Here</p>
+                        {% endif %}
 
-                            <p class="fs-12 mt-3">
-                              Praesent facilisis vulputate venenatis. In
-                              facilisis placerat arcu, in tempor neque aliquet
-                              quis. Integer lacinia in ligula eu sodales. Proin
-                              non lorem iaculis, dictum lorem quis, bibendum
-                              leo.
-                            </p>
-                          </div>
                         </div>
                       </div>
                     </div>

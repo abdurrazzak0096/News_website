@@ -8,7 +8,7 @@ from django.views.generic import TemplateView
 
 from website import forms
 from website.models import Category, FlashNews, SliderNews, LatestNews, Article, Video, LatestVideo, \
-    SportLight
+    SportLight, Comment
 
 
 # Create your views here.
@@ -62,6 +62,7 @@ class RegisterView(View):
         context = {'form': form}
         return render(request, 'register.html', context=context)
 
+
 class LoginView(View):
     def get(self, request):
         return render(request, 'login.html')
@@ -77,14 +78,49 @@ class LoginView(View):
                     login(request, user)
                     return redirect('/')
             except ObjectDoesNotExist:
-                messages.error(request,"User not found!!")
+                messages.error(request, "User not found!!")
         else:
             messages.error(request, "User or Password Not Match!!")
-        context = {'form':form}
+        context = {'form': form}
         return render(request, 'login.html', context=context)
+
 
 class LogoutView(View):
     def get(self, request):
         logout(request)
         return redirect('/auth/login')
 
+
+class CommentView(View):
+    def post(self, request, article_id):
+        form = forms.CommentForm(request.POST)
+        if form.is_valid():
+            comment = form.data['comment']
+            Comment.objects.create(
+
+                user=self.request.user,
+                article_id=article_id,
+                comment=comment
+
+            ).save()
+        else:
+            messages.error(request, "Invalid Data Make Sure You Are OK")
+        return redirect(f"/news/details/{article_id}")
+
+
+class ContactView(View):
+    def post(self, request):
+        form = forms.ContactForm(data=request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Message was sent!")
+        else:
+            messages.error(request, "Invalid Data.")
+        return redirect('/news/contact-us')
+
+    def get(self, request):
+        return render(request, 'contact-us.html')
+
+
+class AboutView(TemplateView):
+    template_name = 'about-us.html'

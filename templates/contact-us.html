@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block main_container %}
+
+    {% include 'header.html' %}
+
+    <div class="container-scroller">
+      <!-- partial:../partials/_navbar.html -->
+      <div class="content-wrapper">
+        <div class="container">
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="card" data-aos="fade-up">
+                <div class="card-body">
+                  <div class="aboutus-wrapper">
+                    <h1 class="mt-5 text-center mb-5">
+                      Contact Us
+                        {% for message in messages %}
+                            <p>{{ message }}</p>
+                        {% endfor %}
+                    </h1>
+                    <div class="row">
+                      <div class="col-lg-12 mb-5 mb-sm-2">
+                        <form action="{% url 'contact-us' %}" method="post" >
+                            {% csrf_token %}
+                          <div class="row">
+                            <div class="col-sm-12">
+                              <div class="form-group">
+                                <textarea
+                                  class="form-control textarea"
+                                  placeholder="Comment *"
+                                  name="message"
+                                  id="message"
+                                ></textarea>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-sm-6">
+                              <div class="form-group">
+                                <input
+                                  type="text"
+                                  class="form-control"
+                                  name="name"
+                                  id="name"
+                                  aria-describedby="name"
+                                  placeholder="Name *"
+                                />
+                              </div>
+                            </div>
+                            <div class="col-sm-6">
+                              <div class="form-group">
+                                <input
+                                  type="email"
+                                  class="form-control"
+                                  name="email"
+                                  id="email"
+                                  aria-describedby="email"
+                                  placeholder="Email *"
+                                />
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="row">
+                            <div class="col-sm-12">
+                              <div class="form-group">
+                                <button type="submit">Send Message</button>
+                              </div>
+                            </div>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- container-scroller ends -->
+{% endblock %}
+

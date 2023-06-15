@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 from website.models import Category, FlashNews, SliderNews, LatestNews, Article, Video, LatestVideo, SportLight, Tag, \
-    Comment, Contact
+    Comment, Contact, WebsiteSetting
 
 # Register your models here.
 
@@ -16,3 +16,4 @@ admin.site.register(SportLight)
 admin.site.register(Tag)
 admin.site.register(Comment)
 admin.site.register(Contact)
+admin.site.register(WebsiteSetting)

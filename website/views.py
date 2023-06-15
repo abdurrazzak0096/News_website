@@ -8,7 +8,7 @@ from django.views.generic import TemplateView
 
 from website import forms
 from website.models import Category, FlashNews, SliderNews, LatestNews, Article, Video, LatestVideo, \
-    SportLight, Comment
+    SportLight, Comment, WebsiteSetting
 
 
 # Create your views here.
@@ -30,6 +30,7 @@ class HomeView(TemplateView):
         context['sport_lights_middles'] = SportLight.objects.filter(is_active=False)
         context['sport_lights_display_right'] = SportLight.objects.filter(is_display_right=True)
         context['celebrity_news'] = SportLight.objects.filter(is_celebrity_news=True)
+        context['website_settings'] = WebsiteSetting.objects.first()
 
         return context
 
@@ -124,3 +125,5 @@ class ContactView(View):
 
 class AboutView(TemplateView):
     template_name = 'about-us.html'
+
+

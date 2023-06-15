@@ -129,3 +129,9 @@ class Contact(models.Model):
 
     def __str__(self):
         return self.name
+
+class WebsiteSetting(models.Model):
+    logo = models.ImageField(upload_to='logo/', null=True,blank=True )
+    facebook_link = models.CharField(max_length=250)
+    twitter_link = models.CharField(max_length=250)
+    youtube_link = models.CharField(max_length=250)

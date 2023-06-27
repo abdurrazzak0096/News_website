@@ -58,12 +58,12 @@
                       <div class="pr-3">
                         <h5>{{ latestnews.title }}</h5>
                         <div class="fs-12">
-                          <span class="mr-2">Photo </span>{{ latestnews.timestamp }}
+                          <span class="mr-2">Photo </span>{{ latestnews.timeStamptamp }}
                         </div>
                       </div>
                       <div class="rotate-img">
                         <img
-                          src="{{ latestnews.image.url}}"
+                          src="{{ latestnews.banner.url}}"
                           alt="thumb"
                           class="img-fluid img-lg"
                         />
@@ -252,7 +252,7 @@
                           <div class="col-xl-6 col-lg-8 col-sm-6">
                             <div class="rotate-img">
                               <img
-                                src="{{sport_light.image.url}}"
+                                src="{{sport_light.banner.url}}"
                                 alt="thumb"
                                 class="img-fluid"
                               />
@@ -261,12 +261,12 @@
                                 {{ sport_light.title}}
                             </h2>
                             <p class="fs-13 mb-1 text-muted">
-                              <span class="mr-2">{{ sport_light.author_name}}</span>{{ sport_light.timestamp}}
+                              <span class="mr-2">{{ sport_light.author_name}}</span>{{ sport_light.timeStamp}}
                             </p>
                             <p class="my-3 fs-15">
                                 {{ sport_light.get_short_desc}}
                             </p>
-                            <a href="#" class="font-weight-600 fs-16 text-dark"
+                            <a href="{% url 'spotlight-news-details' sport_light.pk %}" class="font-weight-600 fs-16 text-dark"
                               >Read more</a
                             >
                           </div>
@@ -280,7 +280,7 @@
                                   {{ sport_light.title}}
                               </h3>
                               <p class="fs-13 text-muted mb-0">
-                                <span class="mr-2">{{ sport_light_middle.author_name }} </span>{{ sport_light_middle.timestamp }}
+                                <span class="mr-2">{{ sport_light_middle.author_name }} </span>{{ sport_light_middle.timeStamp }}
                               </p>
                               <p class="mb-0">
                                   {{ sport_light_middle.get_short_desc}}
@@ -300,7 +300,7 @@
                             <div class="border-bottom pb-3">
                               <div class="rotate-img">
                                 <img
-                                  src="{{ sport_lights_displayright.image.url }}"
+                                  src="{{ sport_lights_displayright.banner.url }}"
                                   alt="thumb"
                                   class="img-fluid"
                                 />
@@ -329,7 +329,7 @@
                                     <div class="col-sm-5 pr-2">
                                       <div class="rotate-img">
                                         <img
-                                          src="{{ celebritynews.image.url }}"
+                                          src="{{ celebritynews.banner.url }}"
                                           alt="thumb"
                                           class="img-fluid w-100"
                                         />

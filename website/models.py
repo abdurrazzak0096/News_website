@@ -8,6 +8,7 @@ class Category(models.Model):
     name = models.CharField(max_length=40)
     is_menu = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
+    file_path = models.CharField(max_length=100, null=True, blank=True)
 
     def __str__(self):
         return self.name
@@ -33,8 +34,8 @@ class SliderNews(models.Model):
 
 class LatestNews(models.Model):
     title = models.CharField(max_length=200)
-    image = models.ImageField(upload_to='latestNews/')
-    timestamp = models.TimeField(auto_now=True)
+    banner = models.ImageField(upload_to='latestNews/')
+    timeStamp = models.TimeField(auto_now=True)
 
     def __str__(self):
         return self.title
@@ -89,12 +90,12 @@ class LatestVideo(models.Model):
 
 
 class SportLight(models.Model):
-    image = models.ImageField(upload_to='spotlights/')
+    banner = models.ImageField(upload_to='spotlights/')
     title = models.CharField(max_length=200)
     description = models.TextField()
     author_name = models.CharField(max_length=30)
     author_image = models.ImageField(upload_to='authorImages/')
-    timestamp = models.DateTimeField(auto_now=True)
+    timeStamp = models.DateTimeField(auto_now=True)
     tags = models.ManyToManyField(Tag)
     is_active = models.BooleanField(default=True)
     is_display_right = models.BooleanField(default=False)
@@ -130,8 +131,33 @@ class Contact(models.Model):
     def __str__(self):
         return self.name
 
+
+# start code for Art.html
+class Art(models.Model):
+    banner = models.ImageField(upload_to='Arts_image/')
+    title = models.CharField(max_length=100)
+    timeStamp = models.TimeField(auto_now=True)
+    description = models.TextField()
+
+    def get_short_desc(self):
+        return self.description[:120]
+
+    def __str__(self):
+        return self.title
+
+
+class ArtLatestNews(models.Model):
+    banner = models.ImageField(upload_to='latest_news/')
+    title = models.CharField(max_length=100)
+    timeStamp = models.DateTimeField(auto_now=True)
+    is_trending_news = models.BooleanField(default=False)
+
+
+# end code for Art.html
+
+
 class WebsiteSetting(models.Model):
-    logo = models.ImageField(upload_to='logo/', null=True,blank=True )
+    logo = models.ImageField(upload_to='logo/', null=True, blank=True)
     facebook_link = models.CharField(max_length=250)
     twitter_link = models.CharField(max_length=250)
     youtube_link = models.CharField(max_length=250)

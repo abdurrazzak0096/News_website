@@ -8,7 +8,7 @@ from django.views.generic import TemplateView
 
 from website import forms
 from website.models import Category, FlashNews, SliderNews, LatestNews, Article, Video, LatestVideo, \
-    SportLight, Comment, WebsiteSetting
+    SportLight, Comment, WebsiteSetting, Art, ArtLatestNews
 
 
 # Create your views here.
@@ -126,4 +126,45 @@ class ContactView(View):
 class AboutView(TemplateView):
     template_name = 'about-us.html'
 
+    def get_context_data(self, **kwargs):
+        context = {
+            'menus': Category.objects.filter(is_menu=True, is_active=True),
+            'website_settings': WebsiteSetting.objects.first(),
+        }
+        return context
 
+
+def art(request):
+    context = {
+        'menus': Category.objects.filter(is_menu=True, is_active=True),
+        'website_settings': WebsiteSetting.objects.first(),
+        'art_obj_mainCont': Art.objects.all(),
+        'art_obj_latestNews': ArtLatestNews.objects.filter(is_trending_news=False),
+        'art_obj_trendingNews': ArtLatestNews.objects.filter(is_trending_news=True)
+    }
+    return render(request, 'art.html', context)
+
+class ArtDetailView(View):
+    def get(self, request, artnews_id):
+        artnews = Art.objects.get(id=artnews_id)
+        context = {
+            'artnews': artnews,
+            'art_obj_latestNews': ArtLatestNews.objects.filter(is_trending_news=False),
+            'art_obj_trendingNews': ArtLatestNews.objects.filter(is_trending_news=True),
+            'menus': Category.objects.filter(is_menu=True, is_active=True),
+            'website_settings': WebsiteSetting.objects.first(),
+            'flash_news': FlashNews.objects.last()
+        }
+        return render(request, 'art_news_details.html', context=context)
+
+class SpotLightDetailView(View):
+    def get(self,request,spotlight_id):
+        spotlightNews = SportLight.objects.get(id=spotlight_id)
+        context = {
+            'artnews': spotlightNews,
+            'art_obj_latestNews' : LatestNews.objects.all(),
+            'menus': Category.objects.filter(is_menu=True, is_active=True),
+            'website_settings': WebsiteSetting.objects.first(),
+            'flash_news': FlashNews.objects.last()
+        }
+        return render(request, 'art_news_details.html', context=context)

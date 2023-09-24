@@ -29,20 +29,20 @@
                     <div class="col-lg-8">
                       <div>
                         <h1 class="font-weight-600 mb-1">
-                            {{ artnews.title }}
+                            {{ news.title }}
                         </h1>
                         <p class="fs-13 text-muted mb-0">
-                          <span class="mr-2"> </span>{{ artnews.timeStamp }}
+                          <span class="mr-2"> </span>{{ news.timeStamp }}
                         </p>
                         <div class="rotate-img">
                           <img
-                            src="{{artnews.banner.url}}"
+                            src="{{news.banner.url}}"
                             alt="banner"
                             class="img-fluid mt-4 mb-4"
                           />
                         </div>
                         <p class="mb-4 fs-15">
-                            {{ artnews.description }}
+                            {{ news.description }}
                         </p>
                       </div>
 
@@ -51,14 +51,14 @@
                       <h2 class="mb-4 text-primary font-weight-600">
                         Latest news
                       </h2>
-                        {% for art_objlatestNews in art_obj_latestNews %}
+                        {% for art_objlatestNews in latest_news %}
                       <div class="row">
                         <div class="col-sm-12">
                           <div class="border-bottom pb-4 pt-4">
                             <div class="row">
                               <div class="col-sm-8">
                                 <h5 class="font-weight-600 mb-1">
-                                  {{ art_objlatestNews.title }}
+                                  <a href="{% url 'latest-news-details' art_objlatestNews.pk %}">{{ art_objlatestNews.title }}</a>
                                 </h5>
                                 <p class="fs-13 text-muted mb-0">
                                   <span class="mr-2">Photo </span>{{ art_objlatestNews.timeStamp }}
@@ -80,28 +80,28 @@
                         {% endfor %}
 
 
-                     {% for art_objtrendingNew in art_obj_trendingNews %}
-                      <div class="trending">
-                        <h2 class="mb-4 text-primary font-weight-600">
-                          Trending
-                        </h2>
-                        <div class="mb-4">
-                          <div class="rotate-img">
-                            <img
-                              src="{{ art_objtrendingNew.banner.url }}"
-                              alt="banner"
-                              class="img-fluid"
-                            />
-                          </div>
-                          <h3 class="mt-3 font-weight-600">
-                            {{ art_objtrendingNew.title }}
-                          </h3>
-                          <p class="fs-13 text-muted mb-0">
-                            <span class="mr-2">Photo </span>{{ art_objtrendingNew.timeStamp }}
-                          </p>
-                        </div>
-                      </div>
-                     {% endfor %}
+{#                     {% for art_objtrendingNew in art_obj_trendingNews %}#}
+{#                      <div class="trending">#}
+{#                        <h2 class="mb-4 text-primary font-weight-600">#}
+{#                          Trending#}
+{#                        </h2>#}
+{#                        <div class="mb-4">#}
+{#                          <div class="rotate-img">#}
+{#                            <img#}
+{#                              src="{{ art_objtrendingNew.banner.url }}"#}
+{#                              alt="banner"#}
+{#                              class="img-fluid"#}
+{#                            />#}
+{#                          </div>#}
+{#                          <h3 class="mt-3 font-weight-600">#}
+{#                            {{ art_objtrendingNew.title }}#}
+{#                          </h3>#}
+{#                          <p class="fs-13 text-muted mb-0">#}
+{#                            <span class="mr-2">Photo </span>{{ art_objtrendingNew.timeStamp }}#}
+{#                          </p>#}
+{#                        </div>#}
+{#                      </div>#}
+{#                     {% endfor %}#}
 
 
                     </div>

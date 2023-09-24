@@ -8,7 +8,7 @@ from django.views.generic import TemplateView
 
 from website import forms
 from website.models import Category, FlashNews, SliderNews, LatestNews, Article, Video, LatestVideo, \
-    SportLight, Comment, WebsiteSetting, Art, ArtLatestNews
+    SportLight, Comment, WebsiteSetting, Art, ArtLatestNews, Magazine
 
 
 # Create your views here.
@@ -21,7 +21,7 @@ class HomeView(TemplateView):
         context['menus'] = Category.objects.filter(is_menu=True, is_active=True)
         context['flash_news'] = FlashNews.objects.last()
         context['slider_news'] = SliderNews.objects.last()
-        context['latest_news'] = LatestNews.objects.all()
+        context['latest_news'] = LatestNews.objects.all()[:3]
         context['categories'] = Category.objects.filter(is_active=True)
         context['articles'] = Article.objects.filter(is_draft=False)
         context['videos'] = Video.objects.all()
@@ -148,23 +148,60 @@ class ArtDetailView(View):
     def get(self, request, artnews_id):
         artnews = Art.objects.get(id=artnews_id)
         context = {
-            'artnews': artnews,
-            'art_obj_latestNews': ArtLatestNews.objects.filter(is_trending_news=False),
-            'art_obj_trendingNews': ArtLatestNews.objects.filter(is_trending_news=True),
+            'news': artnews,
             'menus': Category.objects.filter(is_menu=True, is_active=True),
             'website_settings': WebsiteSetting.objects.first(),
-            'flash_news': FlashNews.objects.last()
+            'flash_news': FlashNews.objects.last(),
+            'latest_news': LatestNews.objects.all(),
         }
-        return render(request, 'art_news_details.html', context=context)
+        return render(request, 'category_news_details.html', context=context)
 
 class SpotLightDetailView(View):
     def get(self,request,spotlight_id):
         spotlightNews = SportLight.objects.get(id=spotlight_id)
         context = {
-            'artnews': spotlightNews,
+            'news': spotlightNews,
             'art_obj_latestNews' : LatestNews.objects.all(),
             'menus': Category.objects.filter(is_menu=True, is_active=True),
             'website_settings': WebsiteSetting.objects.first(),
             'flash_news': FlashNews.objects.last()
         }
-        return render(request, 'art_news_details.html', context=context)
+        return render(request, 'category_news_details.html', context=context)
+
+# magazine section start
+def magazine(request):
+    context = {
+        'menus': Category.objects.filter(is_menu=True, is_active=True),
+        'website_settings': WebsiteSetting.objects.first(),
+        'magazine_obj_mainCont': Magazine.objects.filter(is_trending_news=False,is_latest_news=False),
+        'magazine_obj_latestNews': Magazine.objects.filter(is_latest_news=True),
+        'magazine_obj_trendingNews': Magazine.objects.filter(is_trending_news=True)
+    }
+    return render(request, 'magazine.html', context)
+class MagazineDetailView(View):
+    def get(self, request, magazinenews_id):
+        magazine_news = Magazine.objects.get(id=magazinenews_id)
+        context = {
+            'news': magazine_news,
+            'latest_news': LatestNews.objects.all(),
+            'menus': Category.objects.filter(is_menu=True, is_active=True),
+            'website_settings': WebsiteSetting.objects.first(),
+            'flash_news': FlashNews.objects.last()
+        }
+        return render(request, 'category_news_details.html', context=context)
+
+# magazine section end
+# latestnews section start
+class LatestNewsDetailView(View):
+    def get(self, request, latestnews_id):
+        magazine_news = LatestNews.objects.get(id=latestnews_id)
+        context = {
+            'news': magazine_news,
+            'latest_news': LatestNews.objects.all(),
+            'menus': Category.objects.filter(is_menu=True, is_active=True),
+            'website_settings': WebsiteSetting.objects.first(),
+            'flash_news': FlashNews.objects.last()
+        }
+        return render(request, 'category_news_details.html', context=context)
+
+# latestnews section end

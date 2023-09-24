@@ -36,10 +36,10 @@ class LatestNews(models.Model):
     title = models.CharField(max_length=200)
     banner = models.ImageField(upload_to='latestNews/')
     timeStamp = models.TimeField(auto_now=True)
+    description = models.TextField(null=True)
 
     def __str__(self):
         return self.title
-
 
 class Tag(models.Model):
     tag_name = models.CharField(max_length=30)
@@ -154,6 +154,23 @@ class ArtLatestNews(models.Model):
 
 
 # end code for Art.html
+
+
+# start code for magazine.html
+class Magazine(models.Model):
+    banner = models.ImageField(upload_to='Magazine_image/')
+    title = models.CharField(max_length=100)
+    timeStamp = models.TimeField(auto_now=True)
+    description = models.TextField()
+    is_trending_news = models.BooleanField(default=False)
+    is_latest_news = models.BooleanField(default=False)
+
+    def get_short_desc(self):
+        return self.description[:120]
+
+    def __str__(self):
+        return self.title
+# end code for magazine.html
 
 
 class WebsiteSetting(models.Model):

@@ -10,6 +10,9 @@ urlpatterns = [
     path('about-us/', views.AboutView.as_view(), name='about-us'),
     path('art/', views.art, name='art-page'),
     path('art/details/<int:artnews_id>', views.ArtDetailView.as_view(), name='art-news-details'),
+    path('magazine/', views.magazine, name='magazine-page'),
+    path('magazine/details/<int:magazinenews_id>', views.MagazineDetailView.as_view(), name='magazine-news-details'),
     path('spotlight/details/<int:spotlight_id>', views.SpotLightDetailView.as_view(), name='spotlight-news-details'),
+    path('latest-news/details/<int:latestnews_id>', views.LatestNewsDetailView.as_view(), name='latest-news-details'),
 
 ]

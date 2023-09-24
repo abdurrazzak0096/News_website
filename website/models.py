@@ -57,6 +57,9 @@ class Article(models.Model):
     description = models.TextField()
     author_name = models.CharField(max_length=30)
     author_image = models.ImageField(upload_to='authorImages/')
+    author_facebook = models.CharField(max_length=200,null=True,blank=True)
+    author_youtube = models.CharField(max_length=200,null=True,blank=True)
+    author_twitter = models.CharField(max_length=200,null=True,blank=True)
     tags = models.ManyToManyField(Tag)
     is_draft = models.BooleanField(default=True)
 
@@ -86,6 +89,7 @@ class Video(models.Model):
 class LatestVideo(models.Model):
     image = models.ImageField(upload_to='latestVideos/')
     title = models.CharField(max_length=150)
+    video_url = models.CharField(max_length=200,null=True)
     is_active = models.BooleanField(default=True)
 
 
@@ -172,9 +176,17 @@ class Magazine(models.Model):
         return self.title
 # end code for magazine.html
 
+class AboutUs(models.Model):
+    image = models.ImageField(upload_to='about_us/')
+    paragraph_one = models.TextField()
+    paragraph_two = models.TextField()
+    paragraph_three = models.TextField()
+    paragraph_four = models.TextField()
+
 
 class WebsiteSetting(models.Model):
     logo = models.ImageField(upload_to='logo/', null=True, blank=True)
     facebook_link = models.CharField(max_length=250)
     twitter_link = models.CharField(max_length=250)
     youtube_link = models.CharField(max_length=250)
+    copy_right = models.CharField(max_length=100,blank=True,null=True)

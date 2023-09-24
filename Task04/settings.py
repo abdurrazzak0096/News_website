@@ -49,6 +49,9 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+CORS_ALLOWED_ORIGINS = [
+    "https://www.youtube.com",  # Add the YouTube domain
+]
 
 ROOT_URLCONF = 'Task04.urls'
 

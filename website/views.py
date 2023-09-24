@@ -8,7 +8,7 @@ from django.views.generic import TemplateView
 
 from website import forms
 from website.models import Category, FlashNews, SliderNews, LatestNews, Article, Video, LatestVideo, \
-    SportLight, Comment, WebsiteSetting, Art, ArtLatestNews, Magazine
+    SportLight, Comment, WebsiteSetting, Art, ArtLatestNews, Magazine, AboutUs
 
 
 # Create your views here.
@@ -39,7 +39,11 @@ class ArticleDetailView(View):
     def get(self, request, article_id):
         article = Article.objects.get(id=article_id)
         context = {
-            'article': article
+            'article': article,
+            'menus': Category.objects.filter(is_menu=True, is_active=True),
+            'website_settings': WebsiteSetting.objects.first(),
+            'categories': Category.objects.filter(is_active=True),
+            'latest_news': LatestNews.objects.all()[:3],
         }
         return render(request, 'news-details.html', context=context)
 
@@ -120,18 +124,13 @@ class ContactView(View):
         return redirect('/news/contact-us')
 
     def get(self, request):
-        return render(request, 'contact-us.html')
-
-
-class AboutView(TemplateView):
-    template_name = 'about-us.html'
-
-    def get_context_data(self, **kwargs):
         context = {
+            'categories': Category.objects.filter(is_active=True),
+            'latest_news': LatestNews.objects.all()[:3],
             'menus': Category.objects.filter(is_menu=True, is_active=True),
             'website_settings': WebsiteSetting.objects.first(),
         }
-        return context
+        return render(request, 'contact-us.html', context)
 
 
 def art(request):
@@ -140,9 +139,12 @@ def art(request):
         'website_settings': WebsiteSetting.objects.first(),
         'art_obj_mainCont': Art.objects.all(),
         'art_obj_latestNews': ArtLatestNews.objects.filter(is_trending_news=False),
-        'art_obj_trendingNews': ArtLatestNews.objects.filter(is_trending_news=True)
+        'art_obj_trendingNews': ArtLatestNews.objects.filter(is_trending_news=True),
+        'categories': Category.objects.filter(is_active=True),
+        'latest_news': LatestNews.objects.all()[:3],
     }
     return render(request, 'art.html', context)
+
 
 class ArtDetailView(View):
     def get(self, request, artnews_id):
@@ -152,43 +154,56 @@ class ArtDetailView(View):
             'menus': Category.objects.filter(is_menu=True, is_active=True),
             'website_settings': WebsiteSetting.objects.first(),
             'flash_news': FlashNews.objects.last(),
-            'latest_news': LatestNews.objects.all(),
+            'latest_news': LatestNews.objects.all()[:3],
+            'categories': Category.objects.filter(is_active=True),
+
         }
         return render(request, 'category_news_details.html', context=context)
 
+
 class SpotLightDetailView(View):
-    def get(self,request,spotlight_id):
+    def get(self, request, spotlight_id):
         spotlightNews = SportLight.objects.get(id=spotlight_id)
         context = {
             'news': spotlightNews,
-            'art_obj_latestNews' : LatestNews.objects.all(),
+            'latest_news': LatestNews.objects.all()[:3],
             'menus': Category.objects.filter(is_menu=True, is_active=True),
             'website_settings': WebsiteSetting.objects.first(),
-            'flash_news': FlashNews.objects.last()
+            'flash_news': FlashNews.objects.last(),
+            'categories': Category.objects.filter(is_active=True),
+
         }
         return render(request, 'category_news_details.html', context=context)
+
 
 # magazine section start
 def magazine(request):
     context = {
         'menus': Category.objects.filter(is_menu=True, is_active=True),
         'website_settings': WebsiteSetting.objects.first(),
-        'magazine_obj_mainCont': Magazine.objects.filter(is_trending_news=False,is_latest_news=False),
+        'magazine_obj_mainCont': Magazine.objects.filter(is_trending_news=False, is_latest_news=False),
         'magazine_obj_latestNews': Magazine.objects.filter(is_latest_news=True),
-        'magazine_obj_trendingNews': Magazine.objects.filter(is_trending_news=True)
+        'magazine_obj_trendingNews': Magazine.objects.filter(is_trending_news=True),
+        'categories': Category.objects.filter(is_active=True),
+        'latest_news': LatestNews.objects.all()[:3],
+
     }
     return render(request, 'magazine.html', context)
+
+
 class MagazineDetailView(View):
     def get(self, request, magazinenews_id):
         magazine_news = Magazine.objects.get(id=magazinenews_id)
         context = {
             'news': magazine_news,
-            'latest_news': LatestNews.objects.all(),
+            'latest_news': LatestNews.objects.all()[:3],
             'menus': Category.objects.filter(is_menu=True, is_active=True),
             'website_settings': WebsiteSetting.objects.first(),
-            'flash_news': FlashNews.objects.last()
+            'flash_news': FlashNews.objects.last(),
+            'categories': Category.objects.filter(is_active=True),
         }
         return render(request, 'category_news_details.html', context=context)
+
 
 # magazine section end
 # latestnews section start
@@ -197,11 +212,27 @@ class LatestNewsDetailView(View):
         magazine_news = LatestNews.objects.get(id=latestnews_id)
         context = {
             'news': magazine_news,
-            'latest_news': LatestNews.objects.all(),
+            'latest_news': LatestNews.objects.all()[:3],
             'menus': Category.objects.filter(is_menu=True, is_active=True),
             'website_settings': WebsiteSetting.objects.first(),
-            'flash_news': FlashNews.objects.last()
+            'flash_news': FlashNews.objects.last(),
+            'categories': Category.objects.filter(is_active=True),
         }
         return render(request, 'category_news_details.html', context=context)
 
+
 # latestnews section end
+
+# about-us section start
+
+def AboutUsView(request):
+    context = {
+        'menus': Category.objects.filter(is_menu=True, is_active=True),
+        'website_settings': WebsiteSetting.objects.first(),
+        'about_us': AboutUs.objects.get(),
+        'latest_news': LatestNews.objects.all()[:3],
+        'categories': Category.objects.filter(is_active=True),
+    }
+    return render(request, 'about-us.html', context)
+
+# about-us section end

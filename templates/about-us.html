@@ -18,38 +18,22 @@
                       About Us
                     </h1>
                     <p class="font-weight-600 fs-15">
-                      He has led a remarkable campaign, defying the traditional
-                      mainstream parties courtesy of his En Marche! movement.
-                      For many, however, the campaign has become less about
-                      backing Macron and instead about voting against Le Pen,
-                      the National Front candidate.
+                      {{ about_us.paragraph_one }}
                     </p>
                     <p class="font-weight-600 fs-15 mb-5 mt-4">
-                      He has led a remarkable campaign, defying the traditional
-                      mainstream parties courtesy of his En Marche! movement.
-                      For many, however, the campaign has become less about
-                      backing Macron and instead about voting against Le Pen,
-                      the National Front candidate.
+                      {{ about_us.paragraph_two }}
                     </p>
                     <img
-                      src="../assets/images/about/about.jpg"
+                      src="{{ about_us.image.url }}"
                       alt="banner"
                       class="img-fluid mb-5"
                     />
 
                     <p class="font-weight-600 fs-15 text-center">
-                      He has led a remarkable campaign, defying the traditional
-                      mainstream parties courtesy of his En Marche! movement.
-                      For many, however, the campaign has become less about
-                      backing Macron and instead about voting against Le Pen,
-                      the National Front candidate.
+                      {{ about_us.paragraph_three }}
                     </p>
                     <p class="font-weight-600 fs-15 mb-5 mt-4 text-center">
-                      He has led a remarkable campaign, defying the traditional
-                      mainstream parties courtesy of his En Marche! movement.
-                      For many, however, the campaign has become less about
-                      backing Macron and instead about voting against Le Pen,
-                      the National Front candidate.
+                     {{ about_us.paragraph_four }}
                     </p>
                   </div>
                 </div>
@@ -61,4 +45,5 @@
     </div>
     <!-- container-scroller ends -->
     <!-- partial:../partials/_footer.html -->
+    {% include 'footer.html' %}
 {% endblock %}

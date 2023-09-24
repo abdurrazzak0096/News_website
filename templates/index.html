@@ -1,374 +1,377 @@
-
 {% extends 'base.html' %}
 {% load static %}
 {% block main_container %}
     <div class="container-scroller">
-      <div class="main-panel">
+        <div class="main-panel">
 
-       {% include 'header.html' %}
+            {% include 'header.html' %}
 
-        <!-- partial -->
-        <div class="flash-news-banner">
-          <div class="container">
-            <div class="d-lg-flex align-items-center justify-content-between">
-              <div class="d-flex align-items-center">
-                <span class="badge badge-dark mr-3">Flash news</span>
-                     <p class="mb-0"> {{ flash_news.title }}</p>
-              </div>
-              <div class="d-flex">
-                <span class="mr-3 text-danger">{{ flash_news.timestamp}}</span>
-                <span class="text-danger">30°C,London</span>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="content-wrapper">
-          <div class="container">
-            <div class="row" data-aos="fade-up">
-              <div class="col-xl-8 stretch-card grid-margin">
-                <div class="position-relative">
-                  <img
-                    src="{{ slider_news.image.url }}"
-                    alt="banner"
-                    class="img-fluid"
-                  />
-                  <div class="banner-content">
-                    <div class="badge badge-danger fs-12 font-weight-bold mb-3">
-                      {{ slider_news.news_type }}
-                    </div>
-                    <h1 class="mb-0">{{ slider_news.title }}</h1>
-                    <h1 class="mb-2">
-                        {{ slider_news.news_desc }}
-                    </h1>
-                    <div class="fs-12">
-                      <span class="mr-2">Photo </span>10 Minutes ago
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="col-xl-4 stretch-card grid-margin">
-                <div class="card bg-dark text-white">
-                  <div class="card-body">
-                    <h2>Latest news</h2>
-
-                    {% for latestnews in latest_news %}
-                    <div
-                      class="d-flex border-bottom-blue pt-3 pb-4 align-items-center justify-content-between"
-                    >
-                      <div class="pr-3">
-                       <a href="{% url 'latest-news-details' latestnews.pk %}"><h5>{{ latestnews.title }}</h5></a>
-                        <div class="fs-12">
-                          <span class="mr-2">Photo </span>{{ latestnews.timeStamptamp }}
+            <!-- partial -->
+            <div class="flash-news-banner">
+                <div class="container">
+                    <div class="d-lg-flex align-items-center justify-content-between">
+                        <div class="d-flex align-items-center">
+                            <span class="badge badge-dark mr-3">Flash news</span>
+                            <p class="mb-0"> {{ flash_news.title }}</p>
                         </div>
-                      </div>
-                      <div class="rotate-img">
-                        <img
-                          src="{{ latestnews.banner.url}}"
-                          alt="thumb"
-                          class="img-fluid img-lg"
-                        />
-                      </div>
+                        <div class="d-flex">
+                            <span class="mr-3 text-danger">{{ flash_news.timestamp }}</span>
+                            <span class="text-danger">30°C,London</span>
+                        </div>
                     </div>
-                    {% endfor %}
-
-                  </div>
                 </div>
-              </div>
             </div>
-            <div class="row" data-aos="fade-up">
-              <div class="col-lg-3 stretch-card grid-margin">
-                <div class="card">
-                  <div class="card-body">
-                    <h2>Category</h2>
-                    <ul class="vertical-menu">
+            <div class="content-wrapper">
+                <div class="container">
+                    <div class="row" data-aos="fade-up">
+                        <div class="col-xl-8 stretch-card grid-margin">
+                            <div class="position-relative">
+                                <img
+                                        src="{{ slider_news.image.url }}"
+                                        alt="banner"
+                                        class="img-fluid"
+                                />
+                                <div class="banner-content">
+                                    <div class="badge badge-danger fs-12 font-weight-bold mb-3">
+                                        {{ slider_news.news_type }}
+                                    </div>
+                                    <h1 class="mb-0">{{ slider_news.title }}</h1>
+                                    <h1 class="mb-2">
+                                        {{ slider_news.news_desc }}
+                                    </h1>
+                                    <div class="fs-12">
+                                        <span class="mr-2">Photo </span>10 Minutes ago
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-4 stretch-card grid-margin">
+                            <div class="card bg-dark text-white">
+                                <div class="card-body">
+                                    <h2>Latest news</h2>
+
+                                    {% for latestnews in latest_news %}
+                                        <div
+                                                class="d-flex border-bottom-blue pt-3 pb-4 align-items-center justify-content-between"
+                                        >
+                                            <div class="pr-3">
+                                                <a href="{% url 'latest-news-details' latestnews.pk %}">
+                                                    <h5>{{ latestnews.title }}</h5></a>
+                                                <div class="fs-12">
+                                                    <span class="mr-2">Photo </span>{{ latestnews.timeStamptamp }}
+                                                </div>
+                                            </div>
+                                            <div class="rotate-img">
+                                                <img
+                                                        src="{{ latestnews.banner.url }}"
+                                                        alt="thumb"
+                                                        class="img-fluid img-lg"
+                                                />
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" data-aos="fade-up">
+                        <div class="col-lg-3 stretch-card grid-margin">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h2>Category</h2>
+                                    <ul class="vertical-menu">
 
 
-                            {% for menu in menus %}
+                                        {% for menu in menus %}
 
-                            <li><a href="{{  menu.file_path }}">{{ menu.name }}</a></li>
-                             {% endfor %}
+                                            <li><a href="{{ menu.file_path }}">{{ menu.name }}</a></li>
+                                        {% endfor %}
 
 
-                    </ul>
-                  </div>
-                </div>
-              </div>
-              <div class="col-lg-9 stretch-card grid-margin">
-                <div class="card">
-                  <div class="card-body">
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-9 stretch-card grid-margin">
+                            <div class="card">
+                                <div class="card-body">
 
-                    {% for article in articles %}
-                        <a href="{% url 'news-details' article.pk %}" style="text-decoration: none; color: black">
-                        <div class="row">
-                      <div class="col-sm-4 grid-margin">
-                        <div class="position-relative">
-                          <div class="rotate-img">
-                            <img
-                              src="{{article.image.url}}"
-                              alt="thumb"
-                              class="img-fluid"
-                            />
-                          </div>
-                          <div class="badge-positioned">
+                                    {% for article in articles %}
+                                        <a href="{% url 'news-details' article.pk %}"
+                                           style="text-decoration: none; color: black">
+                                            <div class="row">
+                                                <div class="col-sm-4 grid-margin">
+                                                    <div class="position-relative">
+                                                        <div class="rotate-img">
+                                                            <img
+                                                                    src="{{ article.image.url }}"
+                                                                    alt="thumb"
+                                                                    class="img-fluid"
+                                                            />
+                                                        </div>
+                                                        <div class="badge-positioned">
                             <span class="badge badge-danger font-weight-bold"
-                              >Flash news</span
+                            >Flash news</span
                             >
-                          </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-8  grid-margin">
+                                                    <h2 class="mb-2 font-weight-600">
+                                                        {{ article.title }}
+                                                    </h2>
+                                                    <div class="fs-13 mb-2">
+                                                        <span class="mr-2">{{ article.author_name }} </span>{{ article.timestamp }}
+                                                    </div>
+                                                    <p class="mb-0">
+                                                        {{ article.get_short_desc }}
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    {% endfor %}
+
+                                </div>
+                            </div>
                         </div>
-                      </div>
-                      <div class="col-sm-8  grid-margin">
-                        <h2 class="mb-2 font-weight-600">
-                            {{ article.title }}
-                        </h2>
-                        <div class="fs-13 mb-2">
-                          <span class="mr-2">{{ article.author_name }} </span>{{ article.timestamp}}
-                        </div>
-                        <p class="mb-0">
-                            {{ article.get_short_desc }}
-                        </p>
-                      </div>
                     </div>
-                        </a>
-                    {% endfor %}
+                    <div class="row" data-aos="fade-up">
+                        <div class="col-sm-12 grid-margin">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-lg-8">
+                                            <div class="card-title">
+                                                Video
+                                            </div>
 
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="row" data-aos="fade-up">
-              <div class="col-sm-12 grid-margin">
-                <div class="card">
-                  <div class="card-body">
-                    <div class="row">
-                      <div class="col-lg-8">
-                        <div class="card-title">
-                          Video
-                        </div>
-
-                         <div class="row">
+                                            <div class="row">
 
 
-                             {% for video in videos %}
-                          <div class="col-sm-6 grid-margin">
-                            <div class="position-relative">
-                              <div class="rotate-img">
-                                <img
-                                  src="{{ video.video_thumbnail.url }}"
-                                  alt="thumb"
-                                  class="img-fluid"
-                                />
-                              </div>
-                              <div class="badge-positioned w-90">
-                                <div
-                                  class="d-flex justify-content-between align-items-center"
-                                >
+                                                {% for video in videos %}
+                                                    <div class="col-sm-6 grid-margin">
+                                                        <div class="position-relative">
+                                                            <div class="rotate-img">
+                                                                <a href="{{ video.video_url }}"><img
+                                                                        src="{{ video.video_thumbnail.url }}"
+                                                                        alt="thumb"
+                                                                        class="img-fluid"
+                                                                />
+                                                                </a>
+                                                            </div>
+                                                            <div class="badge-positioned w-90">
+                                                                <div
+                                                                        class="d-flex justify-content-between align-items-center"
+                                                                >
                                   <span
-                                    class="badge badge-danger font-weight-bold"
-                                    >{{ video.video_type }}</span
+                                          class="badge badge-danger font-weight-bold"
+                                  >{{ video.video_type }}</span
                                   >
-                                  <div class="video-icon">
-                                    <i class="mdi mdi-play"></i>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
+                                                                    <div class="video-icon">
+                                                                        <i class="mdi mdi-play"></i>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
 
-                          <div class="col-sm-6 grid-margin">
-                            <div class="position-relative">
-                              <div class="rotate-img">
-                                <img
-                                  src="{{ video.video_thumbnail.url }}"
-                                  alt="thumb"
-                                  class="img-fluid"
-                                />
-                              </div>
-                              <div class="badge-positioned w-90">
-                                <div
-                                  class="d-flex justify-content-between align-items-center"
-                                >
+                                                    <div class="col-sm-6 grid-margin">
+                                                        <div class="position-relative">
+                                                            <div class="rotate-img">
+                                                                <img
+                                                                        src="{{ video.video_thumbnail.url }}"
+                                                                        alt="thumb"
+                                                                        class="img-fluid"
+                                                                />
+                                                            </div>
+                                                            <div class="badge-positioned w-90">
+                                                                <div
+                                                                        class="d-flex justify-content-between align-items-center"
+                                                                >
                                   <span
-                                    class="badge badge-danger font-weight-bold"
-                                    >{{ video.video_type}}</span
+                                          class="badge badge-danger font-weight-bold"
+                                  >{{ video.video_type }}</span
                                   >
-                                  <div class="video-icon">
-                                    <i class="mdi mdi-play"></i>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                              {% endfor %}
-                        </div>
+                                                                    <div class="video-icon">
+                                                                        <i class="mdi mdi-play"></i>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                {% endfor %}
+                                            </div>
 
-                      </div>
-                      <div class="col-lg-4">
-                        <div
-                          class="d-flex justify-content-between align-items-center"
-                        >
-                          <div class="card-title">
-                            Latest Video
-                          </div>
-                          <p class="mb-3">See all</p>
-                        </div>
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <div
+                                                    class="d-flex justify-content-between align-items-center"
+                                            >
+                                                <div class="card-title">
+                                                    Latest Video
+                                                </div>
 
-                          {% for f in latest_videos %}
+                                            </div>
 
-                              <div
-                          class="d-flex justify-content-between align-items-center border-bottom pb-2"
-                        >
-                          <div class="div-w-80 mr-3">
-                            <div class="rotate-img">
-                              <img
-                                src="{{ f.image.url }}"
-                                alt="thumb"
-                                class="img-fluid"
-                              />
-                            </div>
-                          </div>
-                          <h3 class="font-weight-600 mb-0">
-                              {{ f.title}}
-                          </h3>
-                        </div>
+                                            {% for f in latest_videos %}
 
-                          {% endfor %}
+                                                <div
+                                                        class="d-flex justify-content-between align-items-center border-bottom pb-2"
+                                                >
+                                                    <div class="div-w-80 mr-3">
+                                                        <div class="rotate-img">
+                                                            <a href="{{ f.video_url }}"> <img
+                                                                    src="{{ f.image.url }}"
+                                                                    alt="thumb"
+                                                                    class="img-fluid"
+                                                            />
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                    <h3 class="font-weight-600 mb-0">
+                                                        {{ f.title }}
+                                                    </h3>
+                                                </div>
 
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="row" data-aos="fade-up">
-              <div class="col-sm-12">
-                <div class="card">
-                  <div class="card-body">
-                    <div class="row">
-                      <div class="col-xl-6">
-                        <div class="card-title">
-                          Sport light
-                        </div>
-                        <div class="row">
-                         {% for sport_light in sport_lights %}
-                          <div class="col-xl-6 col-lg-8 col-sm-6">
-                            <div class="rotate-img">
-                              <img
-                                src="{{sport_light.banner.url}}"
-                                alt="thumb"
-                                class="img-fluid"
-                              />
-                            </div>
-                            <h2 class="mt-3 text-primary mb-2">
-                                {{ sport_light.title}}
-                            </h2>
-                            <p class="fs-13 mb-1 text-muted">
-                              <span class="mr-2">{{ sport_light.author_name}}</span>{{ sport_light.timeStamp}}
-                            </p>
-                            <p class="my-3 fs-15">
-                                {{ sport_light.get_short_desc}}
-                            </p>
-                            <a href="{% url 'spotlight-news-details' sport_light.pk %}" class="font-weight-600 fs-16 text-dark"
-                              >Read more</a
-                            >
-                          </div>
-                         {% endfor %}
+                                            {% endfor %}
 
-                          <div class="col-xl-6 col-lg-4 col-sm-6">
-
-                              {% for sport_light_middle in sport_lights_middles %}
-                            <div class="border-bottom pb-3 mb-3">
-                              <h3 class="font-weight-600 mb-0">
-                                  {{ sport_light.title}}
-                              </h3>
-                              <p class="fs-13 text-muted mb-0">
-                                <span class="mr-2">{{ sport_light_middle.author_name }} </span>{{ sport_light_middle.timeStamp }}
-                              </p>
-                              <p class="mb-0">
-                                  {{ sport_light_middle.get_short_desc}}
-                              </p>
-                            </div>
-                              {% endfor %}
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col-xl-6">
-                        <div class="row">
-                          <div class="col-sm-6">
-                            <div class="card-title">
-                              Sport light
-                            </div>
-                              {% for sport_lights_displayright in sport_lights_display_right %}
-                            <div class="border-bottom pb-3">
-                              <div class="rotate-img">
-                                <img
-                                  src="{{ sport_lights_displayright.banner.url }}"
-                                  alt="thumb"
-                                  class="img-fluid"
-                                />
-                              </div>
-                              <p class="fs-16 font-weight-600 mb-0 mt-3">
-                                  {{ sport_lights_displayright.title}}
-                              </p>
-                              <p class="fs-13 text-muted mb-0">
-                                <span class="mr-2">{{ sport_lights_displayright.author_name}}</span>{{ sport_lights_displayright.timestamp}}
-                              </p>
-                            </div>
-                              {% endfor %}
-
-
-
-                          </div>
-                          <div class="col-sm-6">
-                            <div class="card-title">
-                              Celebrity news
-                            </div>
-                              {% for celebritynews in celebrity_news %}
-                            <div class="row">
-                              <div class="col-sm-12">
-                                <div class="border-bottom pb-3">
-                                  <div class="row">
-                                    <div class="col-sm-5 pr-2">
-                                      <div class="rotate-img">
-                                        <img
-                                          src="{{ celebritynews.banner.url }}"
-                                          alt="thumb"
-                                          class="img-fluid w-100"
-                                        />
-                                      </div>
+                                        </div>
                                     </div>
-                                    <div class="col-sm-7 pl-2">
-                                      <p class="fs-16 font-weight-600 mb-0">
-                                          {{ celebritynews.title}}
-                                      </p>
-                                      <p class="fs-13 text-muted mb-0">
-                                        <span class="mr-2">{{ celebritynews.author_name }} </span>{{ celebritynews.timestamp }}
-                                      </p>
-                                      <p class="mb-0 fs-13">
-                                          {{ celebritynews.get_mini_desc_}}
-                                      </p>
-                                    </div>
-                                  </div>
                                 </div>
-                              </div>
                             </div>
-                              {% endfor %}
-                          </div>
                         </div>
-                      </div>
                     </div>
-                  </div>
+                    <div class="row" data-aos="fade-up">
+                        <div class="col-sm-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-xl-6">
+                                            <div class="card-title">
+                                                Sport light
+                                            </div>
+                                            <div class="row">
+                                                {% for sport_light in sport_lights %}
+                                                    <div class="col-xl-6 col-lg-8 col-sm-6">
+                                                        <div class="rotate-img">
+                                                            <img
+                                                                    src="{{ sport_light.banner.url }}"
+                                                                    alt="thumb"
+                                                                    class="img-fluid"
+                                                            />
+                                                        </div>
+                                                        <h2 class="mt-3 text-primary mb-2">
+                                                            {{ sport_light.title }}
+                                                        </h2>
+                                                        <p class="fs-13 mb-1 text-muted">
+                                                            <span class="mr-2">{{ sport_light.author_name }}</span>{{ sport_light.timeStamp }}
+                                                        </p>
+                                                        <p class="my-3 fs-15">
+                                                            {{ sport_light.get_short_desc }}
+                                                        </p>
+                                                        <a href="{% url 'spotlight-news-details' sport_light.pk %}"
+                                                           class="font-weight-600 fs-16 text-dark"
+                                                        >Read more</a
+                                                        >
+                                                    </div>
+                                                {% endfor %}
+
+                                                <div class="col-xl-6 col-lg-4 col-sm-6">
+
+                                                    {% for sport_light_middle in sport_lights_middles %}
+                                                        <div class="border-bottom pb-3 mb-3">
+                                                            <h3 class="font-weight-600 mb-0">
+                                                              <a href="{% url 'spotlight-news-details' sport_light_middle.pk %}" style="color:#16181b;" >{{ sport_light_middle.title }}</a>
+                                                            </h3>
+                                                            <p class="fs-13 text-muted mb-0">
+                                                                <span class="mr-2">{{ sport_light_middle.author_name }} </span>{{ sport_light_middle.timeStamp }}
+                                                            </p>
+                                                            <p class="mb-0">
+                                                                {{ sport_light_middle.get_short_desc }}
+                                                            </p>
+                                                        </div>
+                                                    {% endfor %}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-6">
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <div class="card-title">
+                                                        Sport light
+                                                    </div>
+                                                    {% for sport_lights_displayright in sport_lights_display_right %}
+                                                        <div class="border-bottom pb-3">
+                                                            <div class="rotate-img">
+                                                                <img
+                                                                        src="{{ sport_lights_displayright.banner.url }}"
+                                                                        alt="thumb"
+                                                                        class="img-fluid"
+                                                                />
+                                                            </div>
+                                                            <p class="fs-16 font-weight-600 mb-0 mt-3">
+                                                                <a href="{% url 'spotlight-news-details' sport_lights_displayright.pk %}" style="color: #16181b">{{ sport_lights_displayright.title }}</a>
+                                                            </p>
+                                                            <p class="fs-13 text-muted mb-0">
+                                                                <span class="mr-2">{{ sport_lights_displayright.author_name }}</span>{{ sport_lights_displayright.timestamp }}
+                                                            </p>
+                                                        </div>
+                                                    {% endfor %}
+
+
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <div class="card-title">
+                                                        Celebrity news
+                                                    </div>
+                                                    {% for celebritynews in celebrity_news %}
+                                                        <div class="row">
+                                                            <div class="col-sm-12">
+                                                                <div class="border-bottom pb-3">
+                                                                    <div class="row">
+                                                                        <div class="col-sm-5 pr-2">
+                                                                            <div class="rotate-img">
+                                                                                <img
+                                                                                        src="{{ celebritynews.banner.url }}"
+                                                                                        alt="thumb"
+                                                                                        class="img-fluid w-100"
+                                                                                />
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-sm-7 pl-2">
+                                                                            <p class="fs-16 font-weight-600 mb-0">
+                                                                               <a href="{% url 'spotlight-news-details' celebritynews.pk %}" style="color:#16181b">{{ celebritynews.title }}</a>
+                                                                            </p>
+                                                                            <p class="fs-13 text-muted mb-0">
+                                                                                <span class="mr-2">{{ celebritynews.author_name }} </span>{{ celebritynews.timestamp }}
+                                                                            </p>
+                                                                            <p class="mb-0 fs-13">
+                                                                                {{ celebritynews.get_mini_desc_ }}
+                                                                            </p>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    {% endfor %}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-              </div>
             </div>
-          </div>
+            <!-- main-panel ends -->
+            <!-- container-scroller ends -->
+
+            {% include 'footer.html' %}
+
+            <!-- partial -->
         </div>
-        <!-- main-panel ends -->
-        <!-- container-scroller ends -->
-
-          {% include 'footer.html' %}
-
-        <!-- partial -->
-      </div>
     </div>
 {% endblock %}
 
